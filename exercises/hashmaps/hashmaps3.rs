@@ -40,6 +40,20 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // will be the number of goals conceded from team_2, and similarly
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
+        
+        let curr_team: Team = match results.get(&team_1_name) {
+            Some(x) => *x,
+            None => Team {name: team_1_name, goals_scored: 0, goals_conceded: 0}
+        };
+        curr_team.goals_scored+=team_1_score;
+        curr_team.goals_conceded+=team_2_score;
+
+        let score_val: u8 = match results.get(&team_2_score) {
+            Some(x) => *x,
+            None => 0
+        };
+        scores.insert(team_2_name, score_val+team_2_score);
+
     }
     scores
 }
